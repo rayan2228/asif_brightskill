@@ -140,9 +140,25 @@ new VenoBox({
 });
 
 // counter
-$(".count_up").counterUp({
-  delay: 5,
-  time: 800,
+const counter = document.querySelectorAll(".count_up");
+// covert to array
+const array = Array.from(counter);
+// select array element
+array.map((item) => {
+  // data layer
+  let counterInnerText = item.textContent;
+  item.textContent = 0;
+  let count = 1;
+  let speed = item.dataset.speed / counterInnerText;
+  function counterUp() {
+    item.textContent = count++;
+    if (counterInnerText < count) {
+      clearInterval(stop);
+    }
+  }
+  const stop = setInterval(() => {
+    counterUp();
+  }, speed);
 });
 
 // counter
